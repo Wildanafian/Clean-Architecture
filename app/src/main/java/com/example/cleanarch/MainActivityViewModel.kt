@@ -1,8 +1,6 @@
 package com.example.cleanarch
 
-import android.util.Log
 import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,9 +9,7 @@ import com.example.cleanarch.network.Resource
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel() : ViewModel() {
-
-    private var repo = MainActivityRepository()
+class MainActivityViewModel(private val repo : MainActivityRepository) : ViewModel() {
 
     private var _data : MutableLiveData<ArrayList<NewsData>> = MutableLiveData()
     private var data = _data

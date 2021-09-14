@@ -12,9 +12,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 
-class MainActivityRepository: BaseDataSource() {
+class MainActivityRepository(private val api: ApiInterface) : BaseDataSource() {
 
-    private val api = ApiInterface.getInstance()
     private val data = ArrayList<NewsData>()
 
     fun getData(): Flow<Resource<ArrayList<NewsData>?>> {

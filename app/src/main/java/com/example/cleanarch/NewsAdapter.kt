@@ -32,21 +32,6 @@ class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDif
             binding.itemData = data
             binding.executePendingBindings()
         }
-
-        companion object {
-            @JvmStatic
-            @BindingAdapter("imageUrl")
-            fun setImage(view: ImageView, url: String) {
-                url.let {
-                    Glide.with(view.context)
-                        .load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .override(75, 75)
-                        .centerCrop()
-                        .into(view)
-                }
-            }
-        }
     }
 }
 
@@ -58,5 +43,16 @@ class NewsAdapterDiffUtils : DiffUtil.ItemCallback<NewsData>() {
     override fun areContentsTheSame(oldItem: NewsData, newItem: NewsData): Boolean {
         return oldItem.publishedAt == newItem.publishedAt
     }
+}
 
+@BindingAdapter("imageUrl")
+fun setImage(view: ImageView, url: String) {
+    url.let {
+        Glide.with(view.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .override(75, 75)
+            .centerCrop()
+            .into(view)
+    }
 }

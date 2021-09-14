@@ -1,31 +1,28 @@
 package com.example.cleanarch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarch.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bind: ActivityMainBinding
-    private lateinit var viewModel:MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModel()
     private val newsAdapter = NewsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
         bind.lifecycleOwner = this
+        bind.data = viewModel
         setContentView(bind.root)
-
         initView()
     }
 
     private fun initView(){
-        viewModel = MainActivityViewModel()
-        bind.data = viewModel
-
         viewModel.newsData().observe(this, {
             newsAdapter.submitList(it)
         })
