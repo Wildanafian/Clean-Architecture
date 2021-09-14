@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cleanarch.databinding.NewsItemBinding
-import com.example.cleanarch.model.ArticlesItem
 import com.example.cleanarch.model.NewsData
 
 class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDiffUtils()) {
@@ -27,25 +26,10 @@ class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDif
         return currentList.size
     }
 
-    class ViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: NewsData) {
             binding.itemData = data
             binding.executePendingBindings()
-        }
-
-        companion object {
-            @JvmStatic
-            @BindingAdapter("imageUrl")
-            fun setImage(view: ImageView, url: String) {
-                url.let {
-                    Glide.with(view.context)
-                        .load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .override(75, 75)
-                        .centerCrop()
-                        .into(view)
-                }
-            }
         }
     }
 }
@@ -58,5 +42,16 @@ class NewsAdapterDiffUtils : DiffUtil.ItemCallback<NewsData>() {
     override fun areContentsTheSame(oldItem: NewsData, newItem: NewsData): Boolean {
         return oldItem.publishedAt == newItem.publishedAt
     }
+}
 
+@BindingAdapter("imageUrl")
+fun setImage(view: ImageView, url: String) {
+    url.let {
+        Glide.with(view.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .override(75, 75)
+            .centerCrop()
+            .into(view)
+    }
 }

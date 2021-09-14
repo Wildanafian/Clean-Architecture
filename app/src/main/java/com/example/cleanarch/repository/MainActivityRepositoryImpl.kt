@@ -1,4 +1,4 @@
-package com.example.cleanarch
+package com.example.cleanarch.repository
 
 import com.example.cleanarch.model.NewsData
 import com.example.cleanarch.model.ResponseData
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainActivityRepository: BaseDataSource() {
+class MainActivityRepositoryImpl @Inject constructor(private val api: ApiInterface) : MainActivityRepository, BaseDataSource() {
 
-    private val api = ApiInterface.getInstance()
     private val data = ArrayList<NewsData>()
 
-    fun getData(): Flow<Resource<ArrayList<NewsData>?>> {
+    override fun getData(): Flow<Resource<ArrayList<NewsData>?>> {
         return flow {
             val result = getResult { api.getAllNews("tesla",1) }
             if (result.status == Resource.Status.SUCCESS) {

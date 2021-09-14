@@ -1,19 +1,19 @@
 package com.example.cleanarch
 
-import android.util.Log
 import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cleanarch.model.NewsData
 import com.example.cleanarch.network.Resource
+import com.example.cleanarch.repository.MainActivityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainActivityViewModel() : ViewModel() {
-
-    private var repo = MainActivityRepository()
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(private val repo: MainActivityRepository) : ViewModel() {
 
     private var _data : MutableLiveData<ArrayList<NewsData>> = MutableLiveData()
     private var data = _data

@@ -15,19 +15,4 @@ interface ApiInterface {
         @Query("page") page: Int?,
         @Query("apiKey") apiKey: String? = "5e51183454864effa9c541985ab6701c"
     ): Response<ResponseData>
-
-    companion object {
-        var retrofitService: ApiInterface? = null
-        fun getInstance() : ApiInterface {
-            if (retrofitService == null) {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://newsapi.org/v2/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                retrofitService = retrofit.create(ApiInterface::class.java)
-            }
-            return retrofitService!!
-        }
-
-    }
 }
