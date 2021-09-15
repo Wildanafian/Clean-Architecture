@@ -1,4 +1,4 @@
-package com.example.cleanarch
+package com.example.cleanarch.feature.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cleanarch.databinding.NewsItemBinding
-import com.example.cleanarch.model.ArticlesItem
 import com.example.cleanarch.model.NewsData
 
 class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDiffUtils()) {
+
+    var listener:((NewsData)->Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(NewsItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -21,6 +22,9 @@ class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDif
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(currentList[position])
+        holder.binding.cardNewsItem.setOnClickListener {
+            listener?.invoke(currentList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,14 +41,12 @@ class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDif
             @JvmStatic
             @BindingAdapter("imageUrl")
             fun setImage(view: ImageView, url: String) {
-                url.let {
-                    Glide.with(view.context)
-                        .load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .override(75, 75)
-                        .centerCrop()
-                        .into(view)
-                }
+                Glide.with(view.context)
+                    .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.5f)
+                    .centerCrop()
+                    .into(view)
             }
         }
     }

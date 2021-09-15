@@ -1,5 +1,7 @@
 package com.example.cleanarch.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class ResponseData(
@@ -56,4 +58,35 @@ data class NewsData(
 	val urlToImage: String? = "",
 	val description: String? = "",
 	val title: String? = ""
-)
+):Parcelable {
+	constructor(parcel: Parcel) : this(
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString(),
+		parcel.readString()
+	) {
+	}
+
+	override fun writeToParcel(parcel: Parcel, flags: Int) {
+		parcel.writeString(publishedAt)
+		parcel.writeString(author)
+		parcel.writeString(urlToImage)
+		parcel.writeString(description)
+		parcel.writeString(title)
+	}
+
+	override fun describeContents(): Int {
+		return 0
+	}
+
+	companion object CREATOR : Parcelable.Creator<NewsData> {
+		override fun createFromParcel(parcel: Parcel): NewsData {
+			return NewsData(parcel)
+		}
+
+		override fun newArray(size: Int): Array<NewsData?> {
+			return arrayOfNulls(size)
+		}
+	}
+}

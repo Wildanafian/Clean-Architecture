@@ -1,7 +1,6 @@
-package com.example.cleanarch
+package com.example.cleanarch.feature.news
 
 import com.example.cleanarch.model.NewsData
-import com.example.cleanarch.model.ResponseData
 import com.example.cleanarch.network.ApiInterface
 import com.example.cleanarch.network.BaseDataSource
 import com.example.cleanarch.network.Resource
@@ -10,11 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainActivityRepository: BaseDataSource() {
+class NewsFragmentRepository @Inject constructor(private val api: ApiInterface) : BaseDataSource() {
 
-    private val api = ApiInterface.getInstance()
     private val data = ArrayList<NewsData>()
 
     fun getData(): Flow<Resource<ArrayList<NewsData>?>> {
@@ -33,22 +31,4 @@ class MainActivityRepository: BaseDataSource() {
             emit(Resource.loading())
         }.flowOn(Dispatchers.IO)
     }
-
-    suspend fun asd(): Resource<ResponseData?> {
-        return withContext(Dispatchers.IO) {
-            val response: Resource<ResponseData> = getResult { api.getAllNews("tesla", 1) }
-            when (response.status) {
-                Resource.Status.SUCCESS -> {
-                    Resource.success(response.data)
-                }
-                Resource.Status.ERROR -> {
-                    Resource.error(response.message!!,null)
-                }
-                else -> {
-                    Resource.error(response.message!!,null)
-                }
-            }
-        }
-    }
-
 }
