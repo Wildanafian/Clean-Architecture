@@ -15,13 +15,13 @@ import javax.inject.Inject
 class NewsFragmentViewModel @Inject constructor(private val repo: NewsFragmentRepository) : ViewModel() {
 
     private var _data : MutableLiveData<ArrayList<NewsData>> = MutableLiveData()
-    var data = _data
+    private var data = _data
 
     private var _errorMessage : MutableLiveData<String> = MutableLiveData()
     var errorMessage = _errorMessage
 
     private var _loading : MutableLiveData<Boolean> = MutableLiveData()
-    var loading : LiveData<Boolean> = _loading
+    private var loading : LiveData<Boolean> = _loading
 
     init {
         getData()
@@ -48,6 +48,8 @@ class NewsFragmentViewModel @Inject constructor(private val repo: NewsFragmentRe
     }
 
     fun newsData() = data
+
+    fun loading() = loading
 
     fun errorMessage() = errorMessage
 }

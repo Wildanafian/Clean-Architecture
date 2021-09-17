@@ -42,7 +42,7 @@ class NewsFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                val loading: Boolean by viewModel.loading.observeAsState(initial = true)
+                val loading: Boolean by viewModel.loading().observeAsState(initial = true)
                 LoadingScreen(isLoading = loading) {
                     NewsList(viewModel = viewModel)
                 }
@@ -58,7 +58,7 @@ class NewsFragment : Fragment() {
 
     @Composable
     fun NewsList(viewModel: NewsFragmentViewModel){
-        val data: ArrayList<NewsData> by viewModel.data.observeAsState(arrayListOf())
+        val data: ArrayList<NewsData> by viewModel.newsData().observeAsState(arrayListOf())
         LazyColumn(modifier = Modifier.padding(top = 6.dp)){
             items(data){ data ->
                 NewsItem(data = data, listener = {
