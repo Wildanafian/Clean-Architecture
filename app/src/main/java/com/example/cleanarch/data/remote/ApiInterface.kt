@@ -1,4 +1,4 @@
-package com.example.cleanarch.network
+package com.example.cleanarch.data.remote
 
 import retrofit2.Response
 import retrofit2.http.GET

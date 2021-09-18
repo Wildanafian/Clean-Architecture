@@ -1,7 +1,7 @@
 package com.example.cleanarch.di
 
-import com.example.cleanarch.NewsAdapter
-import com.example.cleanarch.network.ApiInterface
+import com.example.cleanarch.data.local.RoomInterface
+import com.example.cleanarch.data.remote.ApiInterface
 import com.example.cleanarch.repository.MainActivityRepository
 import com.example.cleanarch.repository.MainActivityRepositoryImpl
 import dagger.Module
@@ -16,8 +16,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun mainRepository(api: ApiInterface): MainActivityRepository{
-        return MainActivityRepositoryImpl(api)
+    fun mainRepository(api: ApiInterface, local: RoomInterface): MainActivityRepository{
+        return MainActivityRepositoryImpl(api, local)
     }
 
 //    @Singleton

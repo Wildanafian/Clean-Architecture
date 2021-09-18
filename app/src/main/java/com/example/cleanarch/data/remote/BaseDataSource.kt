@@ -1,4 +1,4 @@
-package com.example.cleanarch.network
+package com.example.cleanarch.data.remote
 
 import com.example.cleanarch.model.ResponseDataError
 import com.google.gson.Gson
@@ -22,7 +22,7 @@ abstract class BaseDataSource {
     }
 
     private fun <T> error(message: String): Resource<T> {
-        return Resource.error("Network call has failed for a following reason: $message")
+        return Resource.error("Error: $message")
     }
 
 }

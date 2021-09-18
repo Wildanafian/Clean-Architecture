@@ -1,5 +1,7 @@
 package com.example.cleanarch.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class ResponseData(
@@ -50,10 +52,12 @@ data class ArticlesItem(
 	val content: String
 )
 
+@Entity(tableName = "newsData")
 data class NewsData(
 	val publishedAt: String? = "",
 	val author: String? = "",
 	val urlToImage: String? = "",
 	val description: String? = "",
-	val title: String? = ""
+	val title: String? = "",
+	@PrimaryKey(autoGenerate = true) val id: Int = 0
 )

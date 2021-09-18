@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cleanarch.model.NewsData
-import com.example.cleanarch.network.Resource
+import com.example.cleanarch.data.remote.Resource
 import com.example.cleanarch.repository.MainActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -40,6 +40,7 @@ class MainActivityViewModel @Inject constructor(private val repo: MainActivityRe
                         _errorMessage.value = it.message
                     }
                     Resource.Status.LOADING ->{
+                        _data.value = it.data
                         loading.value = View.VISIBLE
                     }
                 }

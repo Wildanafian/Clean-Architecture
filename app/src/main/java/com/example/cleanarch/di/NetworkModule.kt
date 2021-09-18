@@ -1,6 +1,6 @@
 package com.example.cleanarch.di
 
-import com.example.cleanarch.network.ApiInterface
+import com.example.cleanarch.data.remote.ApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
