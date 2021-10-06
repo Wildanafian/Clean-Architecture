@@ -1,21 +1,25 @@
-package com.example.cleanarch
+package com.example.cleanarch.presentation
 
 import android.util.Log
 import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cleanarch.model.NewsData
-import com.example.cleanarch.network.Resource
+import com.example.cleanarch.data.network.ApiInterface
+import com.example.cleanarch.data.network.model.NewsData
+import com.example.cleanarch.data.network.Resource
+import com.example.cleanarch.domain.MainActivityUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import java.lang.Exception
+import javax.inject.Inject
 
-class MainActivityViewModel() : ViewModel() {
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(private val repo: MainActivityUseCase, apiInterface: ApiInterface) : ViewModel() {
 
-    private var repo = MainActivityRepository()
-
-    private var _data : MutableLiveData<ArrayList<NewsData>> = MutableLiveData()
+    private var _data : MutableLiveData<List<NewsData>> = MutableLiveData()
     private var data = _data
 
     private var _errorMessage : MutableLiveData<String> = MutableLiveData()
@@ -27,13 +31,13 @@ class MainActivityViewModel() : ViewModel() {
         getData()
     }
 
-    fun getData(){
+    private fun getData(){
         viewModelScope.launch {
-            repo.getData().collect {
+            repo.getNews().collect {
                 when(it.status){
                     Resource.Status.SUCCESS ->{
-                        loading.value = View.GONE
                         _data.value = it.data
+                        loading.value = View.GONE
                     }
                     Resource.Status.ERROR ->{
                         loading.value = View.GONE
@@ -41,6 +45,9 @@ class MainActivityViewModel() : ViewModel() {
                     }
                     Resource.Status.LOADING ->{
                         loading.value = View.VISIBLE
+                    }
+                    Resource.Status.COMPLETE ->{
+                        loading.value = View.GONE
                     }
                 }
             }

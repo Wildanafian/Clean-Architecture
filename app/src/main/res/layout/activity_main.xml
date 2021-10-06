@@ -5,14 +5,14 @@
         <import type="android.view.View"/>
         <variable
             name="data"
-            type="com.example.cleanarch.MainActivityViewModel" />
+            type="com.example.cleanarch.presentation.MainActivityViewModel" />
     </data>
     
 <RelativeLayout 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNews"

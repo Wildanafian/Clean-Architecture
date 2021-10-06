@@ -1,16 +1,18 @@
-package com.example.cleanarch
+package com.example.cleanarch.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarch.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bind: ActivityMainBinding
-    private lateinit var viewModel:MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModels()
     private val newsAdapter = NewsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView(){
-        viewModel = MainActivityViewModel()
         bind.data = viewModel
 
         viewModel.newsData().observe(this, {
