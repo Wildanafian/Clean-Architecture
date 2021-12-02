@@ -11,22 +11,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bind: ActivityMainBinding
+    private val bind by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainActivityViewModel by viewModels()
-    private val newsAdapter = NewsAdapter()
+    private val newsAdapter by lazy { NewsAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind = ActivityMainBinding.inflate(layoutInflater)
         bind.lifecycleOwner = this
+        bind.data = viewModel
         setContentView(bind.root)
 
         initView()
     }
 
-    private fun initView(){
-        bind.data = viewModel
-
+    private fun initView() {
         viewModel.newsData().observe(this, {
             newsAdapter.submitList(it)
         })

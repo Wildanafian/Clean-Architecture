@@ -1,4 +1,4 @@
-package com.example.cleanarch.data.network.model
+package com.example.cleanarch.data.model
 
 import com.google.gson.annotations.SerializedName
 

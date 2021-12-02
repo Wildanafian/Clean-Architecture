@@ -1,6 +1,6 @@
 package com.example.cleanarch.data.network
 
-import com.example.cleanarch.data.network.model.ResponseDataError
+import com.example.cleanarch.data.model.ResponseDataError
 import com.google.gson.Gson
 import retrofit2.Response
 

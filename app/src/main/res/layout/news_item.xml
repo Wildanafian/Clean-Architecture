@@ -5,7 +5,7 @@
     <data>
         <variable
             name="itemData"
-            type="com.example.cleanarch.data.network.model.NewsData" />
+            type="com.example.cleanarch.data.model.NewsData" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepoModule {
+object RepositoryModule {
 
     @Singleton
     @Provides
@@ -23,9 +23,5 @@ object RepoModule {
     @Singleton
     @Provides
     fun provideRepository(remoteDataSource: NewsRemoteDataSource) : MainActivityRepository = MainActivityRepositoryImpl(remoteDataSource)
-
-    @Singleton
-    @Provides
-    fun provideUseCase(repository: MainActivityRepository) : MainActivityUseCase = MainActivityUseCaseImpl(repository)
 
 }

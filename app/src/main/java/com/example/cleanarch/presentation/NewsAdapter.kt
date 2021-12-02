@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cleanarch.databinding.NewsItemBinding
-import com.example.cleanarch.data.network.model.NewsData
+import com.example.cleanarch.data.model.NewsData
 
 class NewsAdapter : ListAdapter<NewsData, NewsAdapter.ViewHolder>(NewsAdapterDiffUtils()) {
 
